@@ -13,7 +13,7 @@
 %% See the License for the specific language governing permissions and
 %% limitations under the License.
 %%==============================================================================
-%% Records 
+%% Records
 -record(state, { callback = entop_format, remote_module = entop_collector,
 		 columns, cbstate, node, otp_version, erts_version, os_fam, os,
 		 os_version, node_flags, interval = 1000, reverse_sort = true,

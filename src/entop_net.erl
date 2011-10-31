@@ -36,4 +36,4 @@ reconnect(Parent, Node) ->
 	    timer:sleep(1000),
 	    reconnect(Parent, Node)
     end.
-	
+

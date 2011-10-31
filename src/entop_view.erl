@@ -75,7 +75,7 @@ init(Parent, State) ->
 
 init_callback(State) ->
     case (State#state.callback):init(State#state.node) of
-	{ok, {Columns, DefaultSort}, CBState} when DefaultSort =< length(Columns) 
+	{ok, {Columns, DefaultSort}, CBState} when DefaultSort =< length(Columns)
 						   andalso DefaultSort >= 1 ->
 	    NSort = DefaultSort;
 	{ok, {Columns, _}, CBState} ->
@@ -93,14 +93,14 @@ print_nodeinfo(State) ->
 	false -> cecho:addstr("(Disconnected)");
 	true -> cecho:addstr("(Connected)")
     end,
-    Head = io_lib:format(" (~s/~s) ~p (~p ~s)~s", 
-			 [State#state.otp_version, 
+    Head = io_lib:format(" (~s/~s) ~p (~p ~s)~s",
+			 [State#state.otp_version,
 			  State#state.erts_version, State#state.os_fam,
 			  State#state.os, OsVers, flags2str(State#state.node_flags)]),
     ok = cecho:addstr(lists:flatten(Head)).
 
 flags2str([]) -> [];
-flags2str([{cpus, N}|Rest]) -> 
+flags2str([{cpus, N}|Rest]) ->
     [" CPU:"++integer_to_list(N)|flags2str(Rest)];
 flags2str([{smp, true}|Rest]) ->
     [" SMP"|flags2str(Rest)];
@@ -168,11 +168,11 @@ update_screen(Time, HeaderData, RowDataList, State) ->
     draw_title_bar(State),
     print_showinfo(State, Time),
     {Headers, State1} = process_header_data(HeaderData, State),
-    lists:foldl(fun(Header, Y) -> 
+    lists:foldl(fun(Header, Y) ->
 			cecho:hline($ , ?MAX_HLINE),
 			cecho:mvaddstr(Y, 0, Header), Y + 1
 		end, 1, Headers),
-    {RowList, State2} = process_row_data(RowDataList, State1), 
+    {RowList, State2} = process_row_data(RowDataList, State1),
     SortedRowList = sort(RowList, State),
     {Y, _} = cecho:getmaxyx(),
     StartY = (Y-(Y-7)),
@@ -199,7 +199,7 @@ print_showinfo(State, RoundTripTime) ->
     cecho:hline($ , ?MAX_HLINE),
     ColName = element(1,lists:nth(State#state.sort, State#state.columns)),
     SortName = if State#state.reverse_sort -> "Descending"; true -> "Ascending" end,
-    Showing = io_lib:format("Interval ~pms, Sorting on ~p (~s), Retrieved in ~pms", 
+    Showing = io_lib:format("Interval ~pms, Sorting on ~p (~s), Retrieved in ~pms",
 			    [State#state.interval, ColName, SortName, RoundTripTime div 1000]),
     cecho:mvaddstr(5,0, lists:flatten(Showing)).
 
@@ -215,7 +215,7 @@ prd([], State, Acc) ->
 prd([RowData|Rest], State, Acc) ->
     case (State#state.callback):row(RowData, State#state.cbstate) of
 	{ok, skip, NCBState} ->
-	    prd(Rest, State#state{ cbstate = NCBState }, Acc); 
+	    prd(Rest, State#state{ cbstate = NCBState }, Acc);
 	{ok, Row, NCBState} ->
 	    prd(Rest, State#state{ cbstate = NCBState }, [Row|Acc])
     end.
@@ -249,8 +249,8 @@ update_row([RowColValue|Rest], [{_,Width,Options}|RestColumns], LineNumber, Offs
 	      end,
     cecho:mvaddstr(LineNumber, Offset, Aligned),
     update_row(Rest, RestColumns, LineNumber, Offset+Width+1).
-    
-    
+
+
 
 
 

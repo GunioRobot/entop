@@ -34,8 +34,8 @@ get_data() ->
 		      {memory, erlang:memory([system, atom, atom_used, binary, code, ets])}
 		     ],
     Self = self(),
-    ProcessesProplist =  [ [ {pid,erlang:pid_to_list(P)} | erlang:process_info(P) ] || 
-			     P <- erlang:processes(), P /= Self ],    
-    
+    ProcessesProplist =  [ [ {pid,erlang:pid_to_list(P)} | erlang:process_info(P) ] ||
+			     P <- erlang:processes(), P /= Self ],
+
     {ok, HeaderProplist, ProcessesProplist}.
 
